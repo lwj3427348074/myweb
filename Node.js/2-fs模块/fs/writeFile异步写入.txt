@@ -1,0 +1,4 @@
+
+我是writeFile写入的
+我是appendFile追加写入的。
+我是writeFile追加写入的

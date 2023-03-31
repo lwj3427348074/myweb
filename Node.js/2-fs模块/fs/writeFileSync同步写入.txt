@@ -1,0 +1,3 @@
+
+我是writeFileSync同步写入的
+我是appendFileSync追加写入的。
