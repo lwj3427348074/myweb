@@ -31,5 +31,4 @@ module.exports = function (success, error) {
   mongoose.connection.on('close', () => {
     console.log('连接关闭');
   })
-
 }

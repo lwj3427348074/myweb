@@ -1,11 +1,10 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 //导入路由文件
-var indexRouter = require('./routes/web/index');
+const indexRouter = require('./routes/web/index');
 const authRouther = require('./routes/web/auth')
 //导入接口路由文件
 const accountRouter = require('./routes/api/account')
@@ -15,7 +14,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const { DBHOST, DBPORT, DBNAME } = require('./config/config')
 
-var app = express();
+const app = express();
 
 //设置 session 中间件
 app.use(session({
@@ -49,7 +48,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', indexRouter)
 app.use('/api', accountRouter)
 app.use('/', authRouther)
 app.use('/api', authApiRouter)
