@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./Pro.js"></script>
+</head>
+
+<body>
+  <script>
+    let p = new Pro((resolve, reject) => {
+      setTimeout(() => {
+        resolve('解决')
+        // reject('ju')
+      }, 1000)
+    })
+      .then(
+        value => {
+          throw new Error('error')
+          return 'haha'
+        },
+        reason => {
+          console.log(reason);
+          return 'P2'
+        }
+      )
+      .then(
+        value => {
+          console.log(value);
+        },
+        reason => {
+          console.log(reason);
+        }
+      )
+
+    // console.log(p);
+  </script>
+</body>
+
+</html>

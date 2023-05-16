@@ -68,7 +68,7 @@ class Pro {
   }
   parse(promise, result, resolve, reject) {
     if (promise == result) {
-      throw new TypeError('Chaining cycle detected')
+      throw new TypeError("Chaining cycle detected")
     }
     try {
       if (result instanceof Pro) {
@@ -97,7 +97,7 @@ class Pro {
   static all(promises) {
     const resolves = []
     return new Pro((resolve, reject) => {
-      promises.map(promise => {
+      promises.forEach(promise => {
         promise.then(value => {
           resolves.push(value)
           if (resolves.length == promises.length) {

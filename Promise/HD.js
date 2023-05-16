@@ -1,10 +1,11 @@
-class Pro {
+class HD {
+
   static PENDING = 'pending'
-  static FULFILLED = 'fulfilled'
-  static REJECTED = 'rejected'
+  static FULFILLED = 'fulfulled'
+  static REJECT = 'reject'
 
   constructor(executor) {
-    this.status = Pro.PENDING
+    this.status = HD.PENDING
     this.value = null
     this.callbacks = []
     try {
@@ -13,10 +14,12 @@ class Pro {
       this.reject(error)
     }
   }
+
   resolve(value) {
-    if (this.status == Pro.PENDING) {
-      this.status = Pro.FULFILLED
+    if (this.status === HD.PENDING) {
+      this.status = HD.FULFILLED
       this.value = value
+      // console.log(this.callbacks);
       setTimeout(() => {
         this.callbacks.map(callback => {
           callback.onFulfilled(value)
@@ -24,9 +27,10 @@ class Pro {
       })
     }
   }
+
   reject(reason) {
-    if (this.status == Pro.PENDING) {
-      this.status = Pro.REJECTED
+    if (this.status === HD.PENDING) {
+      this.status = HD.REJECT
       this.value = reason
       setTimeout(() => {
         this.callbacks.map(callback => {
@@ -35,15 +39,20 @@ class Pro {
       })
     }
   }
+
   then(onFulfilled, onRejected) {
-    if (typeof onFulfilled != 'function') {
-      onFulfilled = value => value
+    if (typeof onFulfilled !== 'function') {
+      onFulfilled = () => this.value
     }
-    if (typeof onRejected != 'function') {
-      onRejected = value => value
+
+    if (typeof onRejected !== 'function') {
+      onRejected = () => { }
     }
-    let promise = new Pro((resolve, reject) => {
-      if (this.status == Pro.PENDING) {
+
+    let promise = new HD((resolve, reject) => {
+
+      if (this.status === HD.PENDING) {
+        // console.log(3);
         this.callbacks.push({
           onFulfilled: value => {
             this.parse(promise, onFulfilled(value), resolve, reject)
@@ -53,12 +62,14 @@ class Pro {
           }
         })
       }
-      if (this.status == Pro.FULFILLED) {
+
+      if (this.status === HD.FULFILLED) {
         setTimeout(() => {
           this.parse(promise, onFulfilled(this.value), resolve, reject)
         })
       }
-      if (this.status == Pro.REJECTED) {
+
+      if (this.status === HD.REJECT) {
         setTimeout(() => {
           this.parse(promise, onRejected(this.value), resolve, reject)
         })
@@ -66,13 +77,19 @@ class Pro {
     })
     return promise
   }
+
   parse(promise, result, resolve, reject) {
     if (promise == result) {
       throw new TypeError('Chaining cycle detected')
     }
     try {
-      if (result instanceof Pro) {
+      if (result instanceof HD) {
         result.then(resolve, reject)
+        // value => {
+        //   resolve(value)
+        // }, reason => {
+        //   reject(reason)
+        // })
       } else {
         resolve(result)
       }
@@ -80,44 +97,56 @@ class Pro {
       reject(error)
     }
   }
+
+  //promise reslove
   static resolve(value) {
-    return new Pro((resolve, reject) => {
-      if (value instanceof Pro) {
+    return new HD((resolve, reject) => {
+      if (value instanceof HD) {
         value.then(resolve, reject)
       } else {
         resolve(value)
       }
     })
   }
+
+  //promise reject
   static reject(value) {
-    return new Pro((_, reject) => {
-      reject(value)
+    return new HD((resolve, reject) => {
+      if (value instanceof HD) {
+        value.then(resolve, reject)
+      } else {
+        reject(value)
+      }
     })
   }
+
+  //promise all
   static all(promises) {
-    const resolves = []
-    return new Pro((resolve, reject) => {
-      promises.map(promise => {
-        promise.then(value => {
-          resolves.push(value)
-          if (resolves.length == promises.length) {
-            resolve(resolves)
+    let resolves = [];
+    return new HD((resolve, reject) => {
+      promises.forEach((promise, index) => {
+        promise.then(
+          value => {
+            resolves.push(value);
+            if (resolves.length == promises.length) {
+              resolve(resolves);
+            }
+          },
+          reason => {
+            reject(reason);
           }
-        }, reason => {
-          reject(reason)
-        })
-      })
-    })
+        );
+      });
+    });
   }
+
   static race(promises) {
-    return new Pro((resolve, reject) => {
+    return new HD((resolve, reject) => {
       promises.map(promise => {
         promise.then(value => {
-          resolve(value)
-        }, reason => {
-          reject(reason)
-        })
-      })
-    })
+          resolve(value);
+        });
+      });
+    });
   }
 }

@@ -68,7 +68,7 @@ class Pro {
   }
   parse(promise, result, resolve, reject) {
     if (promise == result) {
-      throw new TypeError('Chaining cycle detected')
+      throw new TypeError("Chaining cycle detected")
     }
     try {
       if (result instanceof Pro) {
@@ -79,45 +79,5 @@ class Pro {
     } catch (error) {
       reject(error)
     }
-  }
-  static resolve(value) {
-    return new Pro((resolve, reject) => {
-      if (value instanceof Pro) {
-        value.then(resolve, reject)
-      } else {
-        resolve(value)
-      }
-    })
-  }
-  static reject(value) {
-    return new Pro((_, reject) => {
-      reject(value)
-    })
-  }
-  static all(promises) {
-    const resolves = []
-    return new Pro((resolve, reject) => {
-      promises.map(promise => {
-        promise.then(value => {
-          resolves.push(value)
-          if (resolves.length == promises.length) {
-            resolve(resolves)
-          }
-        }, reason => {
-          reject(reason)
-        })
-      })
-    })
-  }
-  static race(promises) {
-    return new Pro((resolve, reject) => {
-      promises.map(promise => {
-        promise.then(value => {
-          resolve(value)
-        }, reason => {
-          reject(reason)
-        })
-      })
-    })
   }
 }
