@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
+  <script src="./axios.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="page-header">基本使用</h2>
+    <button type="button" class="btn btn-primary">发送GET请求</button>
+    <button type="button" class="btn btn-primary">发起请求</button>
+    <button type="button" class="btn btn-primary">取消请求</button>
+  </div>
+  <script>
+    let axios = createInstance()
+    //发送请求
+    // axios({
+    //   method: 'GET'
+    // })
+    // axios({
+    //   method: 'POST'
+    // })
+    // axios.get({})
+    // axios.post({})
+  </script>
+  <script>
+    //axios发起请求 axios 就是 Axios.prototype.request bind出来的
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3000/posts'
+    }).then(res => {
+      console.log(res);
+    })
+    axios.get({})
+  </script>
+  <script>
+    const btns = document.querySelectorAll('button')
+    // 添加请求拦截器 config就是配置对象
+    axios.interceptors.request.use(function (config) {
+      console.log('请求拦截器 成功 --1');
+      return config;
+    }, function (error) {
+      console.log('请求拦截器 失败 --1');
+      return Promise.reject(error);
+    });
+
+    axios.interceptors.request.use(function (config) {
+      console.log('请求拦截器 成功 --2');
+      return config;
+    }, function (error) {
+      console.log('请求拦截器 失败 --2');
+      return Promise.reject(error);
+    });
+
+    // 设置响应拦截器
+    axios.interceptors.response.use(function (response) {
+      console.log('响应拦截器 成功 --1');
+      return response;
+    }, function (error) {
+      console.log('响应拦截器 失败 --1');
+      return Promise.reject(error);
+    });
+
+    axios.interceptors.response.use(function (response) {
+      console.log('响应拦截器 成功 --2');
+      return response;
+    }, function (error) {
+      console.log('响应拦截器 失败 --2');
+      return Promise.reject(error);
+    });
+    // console.dir(chains);
+    console.dir(axios);
+
+    btns[0].onclick = () => {
+      axios({
+        method: 'GET',
+        url: 'http://localhost:3000/posts'
+      }).then(res => {
+        console.log(res);
+      }).catch(reason => {
+        console.log('请求失败：' + reason);
+      })
+    }
+  </script>
+  <script>
+    //声明全局变量
+    let cancel = null
+    btns[1].onclick = () => {
+      //检测上一次的请求是否完成
+      if (cancel !== null) {
+        cancel()
+      }
+      // 创建cancelToken的值
+      let cancelToken = new CancelToken(function (c) {
+        // 将c的值赋值给cancel, 这里的c是一个函数，赋值给了cancel，所以cancel()
+        cancel = c
+      })
+      axios({
+        method: 'GET',
+        url: 'http://localhost:3000/posts',
+        //添加配置对象的属性
+        cancelToken: cancelToken
+      }).then(res => {
+        console.log(res);
+        //当请求完成
+        cancel = null
+      })
+    }
+    //绑定第二个事件取消请求
+    btns[2].onclick = () => {
+      cancel()
+    }
+  </script>
+
+</body>
+
+</html>

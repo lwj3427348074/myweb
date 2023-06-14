@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <script src="./node_modules/axios/dist/mine-axios.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="page-header">基本使用</h2>
+    <button type="button" class="btn btn-primary">发送GET请求</button>
+  </div>
+  <script>
+    // //构造函数
+    // function Axios(config) {
+    //   this.defaults = config
+    //   this.interceptors = {
+    //     request: new InterceptorsManager(),
+    //     response: new InterceptorsManager()
+    //   }
+    // }
+
+    // //发送请求
+    // Axios.prototype.request = function (config) {
+    //   //创建一个Promise对象
+    //   let promise = Promise.resolve(config)
+    //   //创建一个数组
+    //   const chains = [dispatchRequest, undefined]
+    //   //处理拦截器
+    //   //请求拦截器 将请求拦截器的回调函数压入到chains的前面 request.handlers = []
+    //   this.interceptors.request.handlers.forEach(item => {
+    //     chains.unshift(item.fulfilled, item.rejected)
+    //   })
+    //   //响应拦截器
+    //   this.interceptors.response.handlers.forEach(item => {
+    //     chains.push(item.fulfilled, item.rejected)
+    //   })
+    //   while (chains.length > 0) {
+    //     promise = promise.then(chains.shift(), chains.shift())
+    //   }
+    //   return promise
+    // }
+
+    // //发送请求
+    // function dispatchRequest(config) {
+    //   //返回一个promise
+    //   return new Promise((resolve, reject) => {
+    //     resolve({
+    //       status: 200,
+    //       statusText: 'OK'
+    //     })
+    //   })
+    // }
+
+    // //创建实例
+    // let context = new Axios({})
+    // //创建axios函数
+    // let axios = Axios.prototype.request.bind(context)
+    // //将context属性 config interceptors 添加至axios函数对象身上
+    // Object.keys(context).forEach(key => {
+    //   axios[key] = context[key]
+    // })
+
+    // //拦截器管理器构造函数
+    // function InterceptorsManager() {
+    //   this.handlers = []
+    // }
+    // InterceptorsManager.prototype.use = function (fulfilled, rejected) {
+    //   this.handlers.push({
+    //     fulfilled,
+    //     rejected
+    //   })
+    // }
+
+
+    const btn = document.querySelector('button')
+    // 添加请求拦截器 config就是配置对象
+    axios.interceptors.request.use(function (config) {
+      console.log('请求拦截器 成功 --1');
+      return config;
+    }, function (error) {
+      console.log('请求拦截器 失败 --1');
+      return Promise.reject(error);
+    });
+
+    axios.interceptors.request.use(function (config) {
+      console.log('请求拦截器 成功 --2');
+      return config;
+    }, function (error) {
+      console.log('请求拦截器 失败 --2');
+      return Promise.reject(error);
+    });
+
+    // 设置响应拦截器
+    axios.interceptors.response.use(function (response) {
+      console.log('响应拦截器 成功 --1');
+      return response;
+    }, function (error) {
+      console.log('响应拦截器 失败 --1');
+      return Promise.reject(error);
+    });
+
+    axios.interceptors.response.use(function (response) {
+      console.log('响应拦截器 成功 --2');
+      return response;
+    }, function (error) {
+      console.log('响应拦截器 失败 --2');
+      return Promise.reject(error);
+    });
+
+    console.dir(axios);
+
+    btn.onclick = () => {
+      axios({
+        url: 'http://localhost:3000/posts'
+      }).then(res => {
+        console.log(res);
+      }).catch(reason => {
+        console.log('请求失败：' + reason);
+      })
+    }
+  </script>
+</body>
+
+</html>

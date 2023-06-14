@@ -1,0 +1,376 @@
+/* 头部开始 */
+.header {
+  width: 100%;
+  height: 140px;
+  border-bottom: 1px solid #ddd;
+}
+
+.w {
+  width: 1190px;
+  margin: 0 auto;
+}
+
+.header-box {
+  position: relative;
+  height: 140px;
+}
+
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 190px;
+  height: 120px;
+  background: url(./../images/sprite.png) 0 0 no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+}
+
+.search {
+  width: 100%;
+  height: 60px;
+}
+
+.search-m {
+  position: relative;
+  width: 1190px;
+  margin: 0 auto;
+  height: 60px;
+}
+
+.search-logo {
+  display: none;
+  position: absolute;
+  top: 4px;
+  left: 0px;
+  width: 125px;
+  height: 40px;
+  background: url(../images/sprite.png) no-repeat;
+  background-position: 0 -120px;
+  cursor: pointer;
+}
+
+.search-form {
+  position: absolute;
+  left: 260px;
+  top: 25px;
+  width: 546px;
+  height: 32px;
+  border: 2px solid #e2231a;
+
+}
+
+.keyword {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 425px;
+  height: 26px;
+  padding: 2px 44px 2px 17px;
+  border: 1px solid transparent;
+  line-height: 26px;
+  font-size: 12px;
+  color: #333;
+  outline: none;
+}
+
+.search-form button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 58px;
+  height: 32px;
+  line-height: 32px;
+  background-color: #e2231a;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+}
+
+.search-list {
+  display: none;
+  position: absolute;
+  top: 35px;
+  width: 488px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 1px 2px 1px rgb(0 0 0/20%);
+}
+
+.search-list p {
+  text-align: left;
+  font-size: 12px;
+  height: 24px;
+  padding: 1px 6px;
+  line-height: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.search-fix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 2px solid #f10214;
+  background-color: #fff;
+  box-shadow: 2px 2px 2px rgb(0 0 0/20%);
+  animation: searchTop 0.5s ease-in-out;
+  z-index: 10;
+}
+
+@keyframes searchTop {
+  0%{
+    top: -50px;
+  }
+  100%{
+    top: 0;
+  }
+  
+}
+
+
+
+/* 头部结束 */
+
+
+
+
+/* 轮播图开始 */
+.banner{
+  width: 100%;
+  height: 470px;
+  padding-top: 10px;
+  margin-bottom: 30px;
+
+}
+.banner-box {
+  height: 470px;
+}
+.banner-slide {
+  display: flex;
+  justify-content: space-between;
+  height: 470px;
+  width: 790px;
+  margin: 0 auto;
+}
+.banner-slide .slide {
+  position: relative;
+  width: 590px;
+  height: 470px;
+  background-color: blueviolet;
+}
+.banner-slide .three {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 190px;
+  height: 470px;
+}
+.banner-slide .three .bg {
+  width: 190px;
+  height: 150px;
+  cursor: pointer;
+}
+.banner-slide .three img {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-slide .slide .prev,.next {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -20px;
+  width: 25px;
+  height: 35px;
+  line-height: 35px;
+  background-color: rgba(0,0,0,.15);
+  font-size: 20px;
+  cursor: pointer;
+  color: #ccc;
+  border-radius: 20px 0 0 20px;
+}
+
+.banner-slide .slide .prev{
+  left: 0;
+  border-radius: 0 20px 20px 0;
+}
+
+.banner-slide .slide .prev:hover,.next:hover{
+  background-color: rgba(0,0,0,.5);
+}
+
+.banner-slide .slide .banner-btn {
+  position: absolute;
+  left: 30px;
+  bottom: 20px;
+  width: 120px;
+  height: 15px;
+}
+.banner-slide .slide .banner-btn li {
+  float: left;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(0, 0, 0, .05);
+  margin-right: 4px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,.4);
+}
+.banner-slide .slide .banner-btn .active {
+  position: relative;
+  top: -2px;
+  width: 8px;
+  height: 8px;
+  border: 3px solid rgba(0,0,0,.1);
+  background-color: rgba(255,255,255,1);
+}
+/* 轮播图结束 */
+
+
+
+
+/* 主体开始 */
+.content{
+  position: relative;
+  width: 100%;
+}
+
+.miaosha,.youxuan,.guangchang,.tuijian{
+  width: 100%;
+  height: 260px;
+  margin-bottom: 20px;
+  background-color: pink;
+}
+
+.seckill-countdown{
+  float: left;
+  width: 190px;
+  height: 100%;
+  background-color: #e83632;
+  color: #fff;
+}
+
+.countdown-title{
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 31px;
+  
+}
+
+.countdown-desc {
+  margin-top: 90px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.timmer {
+  width: 130px;
+  height: 30px;
+  margin: 10px auto;
+  background-color: #e83632;
+}
+
+.timmer span {
+  position: relative;
+  float: left;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: #2f3430;
+}
+
+.timmer span::after{
+  position: absolute;
+  left: 38px;
+  top: 5px;
+  content: ':';
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.timmer span:last-child{
+  margin-right: 0;
+}
+
+.timmer span:last-child::after{
+  display: none;
+}
+
+.youxuan{
+  height: 980px;
+}
+.guangchang{
+  height: 1005px;
+}
+.tuijian{
+  height: 1870px;
+}
+
+.elevater{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: 615px;
+  width: 58px;
+  height: 252px;
+}
+
+.elevater a {
+  position: relative;
+  display: block;
+  width: 58px;
+  height: 38px;
+  line-height: 19px;
+  font-size: 14px;
+  color: #333;
+  padding: 10px 0;
+  transition: color .2s ease;
+  background-color: #fff;
+}
+.elevater a:hover{
+  background-color: #e2231a;
+  color: #fff;
+}
+
+.elevater a::after{
+  content: '';
+  position: absolute;
+  bottom: -0.5px;
+  left: 50%;
+  margin-left: -9px;
+  display: block;
+  width: 18px;
+  height: 1px;
+  background-color: #ccc;
+  z-index: 1;
+}
+
+.elevater a:last-child::after{
+  display: none;
+}
+
+.elevater-fix {
+  position: fixed;
+  top: 75px;
+  animation: eleShow 0.5s ease;
+}
+
+/* 定义动画 */
+@keyframes eleShow {
+  0%{
+    top:0;
+  }
+  100%{
+    top:75px
+  }
+}
+
+/* 主体结束 */

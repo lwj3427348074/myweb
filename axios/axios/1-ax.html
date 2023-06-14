@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- 必须的 meta 标签 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.1.2/axios.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="page-header">基本使用</h2>
+    <button type="button" class="btn btn-primary">发送GET请求</button>
+    <button type="button" class="btn btn-secondary">发送POST请求</button>
+    <button type="button" class="btn btn-success">发送PUT请求</button>
+    <button type="button" class="btn btn-danger">发送DELETE请求</button>
+  </div>
+
+  <script>
+    const btns = document.querySelectorAll('button')
+    // 添加请求拦截器 config就是配置对象
+    axios.interceptors.request.use(function (config) {
+      console.log('请求拦截器 成功 --1');
+      //修改config中的参数
+      config.params = { a: 100 }
+      return config;
+    }, function (error) {
+      console.log('请求拦截器 失败 --1');
+      //修改config中的参数
+      config.timeout = 2000
+      return Promise.reject(error);
+    });
+
+    axios.interceptors.request.use(function (config) {
+      console.log('请求拦截器 成功 --2');
+      return config;
+    }, function (error) {
+      console.log('请求拦截器 失败 --2');
+      return Promise.reject(error);
+    });
+
+    // 设置响应拦截器
+    axios.interceptors.response.use(function (response) {
+      console.log('响应拦截器 成功 --1');
+      return response.data;
+    }, function (error) {
+      console.log('响应拦截器 失败 --1');
+      return Promise.reject(error);
+    });
+
+    axios.interceptors.response.use(function (response) {
+      console.log('响应拦截器 成功 --2');
+      return response.anwei;
+    }, function (error) {
+      console.log('响应拦截器 失败 --2');
+      return Promise.reject(error);
+    });
+
+    btns[0].onclick = () => {
+      axios({
+        url: 'http://localhost:3000/posts'
+      }).then(res => {
+        console.log('自定义回调处理成功的结果');
+        // console.log(res);
+      }).catch(reason => {
+        console.log('请求失败：' + reason);
+      })
+    }
+
+  </script>
+</body>
+
+</html>
